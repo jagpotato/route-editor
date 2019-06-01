@@ -10,8 +10,5 @@
   "devDependencies": {
     "dotenv": "^8.0.0",
     "parcel-bundler": "^1.12.3"
-  },
-  "dependencies": {
-    "test": "^0.6.0"
   }
 }
