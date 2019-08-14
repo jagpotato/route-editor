@@ -27,13 +27,25 @@ mymap.on('click', onMapClick)
 
 const leftTopLat = 34.681252
 const leftLng = 133.912729
-let lat;
+let lat
+let flightPlan = []
+let flightPoint = {time: '', latitude: '', longitude: '', altitude: ''}
+flightPlan.push(flightPoint)
+let time = 0
 for (let i = 0; i < 7; i++) {
   lat = leftTopLat - 0.0008 * i
   for (let j = 0; j < 8; j++) {
     L.marker([lat, leftLng + 0.0012 * j]).addTo(mymap)
       .on('click', (e) => {
-        console.log(e)
+        // latlngList.push(e.latlng)
+        flightPoint = {time: time.toString(10),
+                      latitude: e.latlng.lat.toString(10),
+                      longitude: e.latlng.lng.toString(10),
+                      altitude: '0'
+                      }
+        flightPlan.push(flightPoint)
+        time++
+        console.log(flightPlan)
       })
     // L.circle([lat, leftLng + 0.0012 * j], {
     //   color: 'red'
@@ -43,3 +55,7 @@ for (let i = 0; i < 7; i++) {
     //   })
   }
 }
+
+const fs = require('fs')
+console.log(fs)
+// fs.writeFile('flightPlan.json', JSON.stringify(flightPlan, null, '  '))
