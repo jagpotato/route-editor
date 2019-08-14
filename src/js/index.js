@@ -57,8 +57,7 @@ const handleFileSelect = (e) => {
                                           })
     console.log(checkPointList)
     // csvファイルから読み取ったチェックポイントを出力
-    for (let checkPoint of checkPointList)
-    {
+    for (let checkPoint of checkPointList) {
       addMarker(checkPoint.lat, checkPoint.lng)
     }
   }
