@@ -3,7 +3,7 @@ dotenv.config()
 
 const pivotLat = 34.679135
 const pivotLng = 133.9173
-const mymap = L.map('mapid').setView([pivotLat, pivotLng], 17)
+const mymap = L.map('mapid').setView([pivotLat, pivotLng], 15)
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
   attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -39,12 +39,15 @@ const addMarker = (lat, lng, id) => {
       if (mode === 'makeFlightPlan') {
         addCheckPointToFlightPlan(time, e.target.options.checkPointID)
         time++
-        console.log(flightPlan)
+        if (document.getElementById('flightPlanDownload').disabled) {
+          document.getElementById('flightPlanDownload').disabled = false
+        }
+        console.log(e.target.options.checkPointID)
       }
     })
 }
 
-// クリック時の処理
+// マップクリック時の処理
 const handleMapClick = (e) => {
   if (mode === 'addCheckPoint') {
     addMarker(e.latlng.lat, e.latlng.lng, checkPointID)
@@ -54,7 +57,7 @@ const handleMapClick = (e) => {
   }
 }
 
-// クリックイベントの追加
+// マップクリックイベントの追加
 mymap.on('click', handleMapClick)
 
 // ファイル選択時の処理
@@ -83,9 +86,37 @@ const handleFileSelect = (e) => {
     }
   }
   reader.readAsText(file)
+
+  document.getElementById('inputCheckPoint').disabled = "disabled"
 }
 
+// ファイル選択イベントの追加
 document.getElementById('inputCheckPoint').addEventListener('change', handleFileSelect, false)
+
+// 飛行計画ダウンロード
+const downloadFlightPlan = (flightPlan) => {
+  const outputFlightPlan = {"flightPlan": flightPlan}
+  const blob = new Blob([JSON.stringify(outputFlightPlan, null, '  ')], {type: 'application/json'})
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  const date = new Date()
+  const downloadFileName = 'flightplan' + date.getFullYear() + (date.getMonth() + 1) + date.getDate() + date.getHours() + date.getMinutes() + date.getSeconds() + '.json'
+  link.download = downloadFileName
+  link.href = url
+  link.click()
+  URL.revokeObjectURL(url)
+}
+
+// 飛行計画ダウンロードボタンクリック時の処理
+const handleFlightPlanDownloadButtonClick = (e) => {
+  // 飛行計画が入力されている場合
+  if (flightPlan.length > 0) {
+    downloadFlightPlan(flightPlan)
+  }
+}
+
+// イベントの追加
+document.getElementById('flightPlanDownload').addEventListener('click', handleFlightPlanDownloadButtonClick, false)
 
 // csv形式で出力
 const exportMarkerListToCSV = () => {
