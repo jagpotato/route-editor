@@ -162,7 +162,3 @@ const exportMarkerListToCSV = () => {
 //     //   })
 //   }
 // }
-
-const fs = require('fs')
-console.log(fs)
-// fs.writeFile('flightPlan.json', JSON.stringify(flightPlan, null, '  '))
