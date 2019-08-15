@@ -1,9 +1,8 @@
 import dotenv from 'dotenv'
 dotenv.config()
-
-const pivotLat = 34.679135
-const pivotLng = 133.9173
-const mymap = L.map('mapid').setView([pivotLat, pivotLng], 15)
+const pivotLat = 36.13787471840729
+const pivotLng = 138.58154296875003
+const mymap = L.map('mapid').setView([pivotLat, pivotLng], 6)
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
   attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
