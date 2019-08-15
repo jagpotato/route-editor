@@ -12,8 +12,15 @@
   <link rel="stylesheet" href="src/css/main.css">
 </head>
 <body>
+  <form>チェックポイント入力：
+    <input id="inputCheckPoint" name="file" type="file">
+  </form>
+  <form id="modeSelect">モード：
+    <label><input type="radio" name="mode" value="makeFlightPlan" checked="checked">飛行計画作成</label>
+    <label><input type="radio" name="mode" value="addCheckPoint">チェックポイント追加</label>
+  </form>
+  <button>飛行計画ダウンロード</button>
   <div id="mapid"></div>
-  <input id="inputCheckPoint" name="file" type="file">
   <script src="src/js/index.js"></script>
 </body>
 </html>
