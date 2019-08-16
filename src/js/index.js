@@ -11,6 +11,10 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
   accessToken: process.env.MAPBOX_ACCESS_TOKEN
 }).addTo(mymap)
 
+// L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+// }).addTo(mymap)
+
 // 飛行計画
 const flightPlan = []
 // チェックポイントid
